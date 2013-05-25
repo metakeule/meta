@@ -36,8 +36,8 @@ func TestEach(t *testing.T) {
 
 	res := map[string]fieldvalue{}
 
-	Struct.Each(&s, func(typ reflect.Type, field string, val interface{}) {
-		res[field] = fieldvalue{val, typ}
+	Struct.Each(&s, func(field string, val interface{}) {
+		res[field] = fieldvalue{val, reflect.TypeOf(val)}
 	})
 
 	if len(res) != 2 {
@@ -66,8 +66,8 @@ func TestEach(t *testing.T) {
 
 	res = map[string]fieldvalue{}
 
-	Struct.Each(s, func(typ reflect.Type, field string, val interface{}) {
-		res[field] = fieldvalue{val, typ}
+	Struct.Each(s, func(field string, val interface{}) {
+		res[field] = fieldvalue{val, reflect.TypeOf(val)}
 	})
 
 	if len(res) != 2 {

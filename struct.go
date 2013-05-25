@@ -24,9 +24,10 @@ func (ø struct_) Get(s interface{}, field string, t interface{}) {
 	reflect.ValueOf(t).Elem().Set(p)
 }
 
-// can be used to get attribute names, types and values, for
+// can be used to get attribute names and values, for
 // tags run Tags / Tag
-func (ø struct_) Each(s interface{}, fn func(typ reflect.Type, field string, val interface{})) {
+// use reflect.TypeOf() to get the type of the val
+func (ø struct_) Each(s interface{}, fn func(field string, val interface{})) {
 	if Nil.Check(s) {
 		return
 	}
@@ -40,7 +41,8 @@ func (ø struct_) Each(s interface{}, fn func(typ reflect.Type, field string, va
 	for i := 0; i < elem; i++ {
 		f := ft.Field(i)
 		v := fv.Field(i)
-		fn(f.Type, f.Name, v.Interface())
+		//fn(f.Type, f.Name, v.Interface())
+		fn(f.Name, v.Interface())
 	}
 	return
 }
@@ -108,8 +110,8 @@ func (ø struct_) Dispatch(s interface{}, m map[reflect.Type]func(field string, 
 				))
 		}
 		errs := map[string]error{}
-		inner := func(typ reflect.Type, fie string, va interface{}) {
-			e := m[typ](fie, va)
+		inner := func(fie string, va interface{}) {
+			e := m[reflect.TypeOf(va)](fie, va)
 			if e != nil {
 				errs[fie] = e
 			}

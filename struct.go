@@ -175,6 +175,8 @@ func (ø struct_) Set(s interface{}, field string, val interface{}) {
 }
 
 // sets an field that is a function
+/*
+only works with go1.1
 func (ø struct_) SetFunc(s interface{}, field string, f func(reflect.Value, []reflect.Value) []reflect.Value) {
 	if Nil.Check(s) {
 		return
@@ -190,6 +192,7 @@ func (ø struct_) SetFunc(s interface{}, field string, f func(reflect.Value, []r
 	v := reflect.MakeFunc(p.Type(), generic)
 	p.Set(v)
 }
+*/
 
 // sets a field on a struct a with value b
 // a and b are casted to their internal values so that

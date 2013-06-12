@@ -1,7 +1,7 @@
 package meta
 
 import (
-	"reflect"
+	// "reflect"
 	// "fmt"
 	"testing"
 )
@@ -23,6 +23,7 @@ func TestCall(t *testing.T) {
 	}
 }
 
+/*
 func TestFuncReplace(t *testing.T) {
 	gen := func(in []reflect.Value) (out []reflect.Value) {
 		v := in[0].Elem().Int() + 5
@@ -38,3 +39,4 @@ func TestFuncReplace(t *testing.T) {
 		t.Errorf("Replace did not work, got %d, expected %d", j, 10)
 	}
 }
+*/

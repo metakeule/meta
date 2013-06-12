@@ -1,13 +1,15 @@
 package meta
 
 import (
-	"fmt"
+	//	"fmt"
 	"reflect"
 )
 
 // replaces the function with a (generic) function of the same type
 // stolen from the example of reflect.MakeFunc
 // specific and generic must have the same number of input and output parameters
+/*
+only works with go1.1
 func (ø func_) Replace(specific interface{}, generic func([]reflect.Value) []reflect.Value) {
 	if !ø.IsPointerTo(reflect.Func, specific) {
 		panic(fmt.Sprintf("%s must be a pointer to a function", Inspect(specific)))
@@ -17,6 +19,7 @@ func (ø func_) Replace(specific interface{}, generic func([]reflect.Value) []re
 	v := reflect.MakeFunc(fn.Type(), generic)
 	fn.Set(v)
 }
+*/
 
 // calls function ø with vals, but doesn't return anything
 func (ø func_) Call(f interface{}, vals ...interface{}) {

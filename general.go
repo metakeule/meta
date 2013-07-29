@@ -36,6 +36,21 @@ func Inspect(i interface{}) (s string) {
 	return
 }
 
+// returns a reference to a new empty value based on Type
+func New(t reflect.Type) (ptr interface{}) {
+	return reflect.New(t).Interface()
+}
+
+// returns a reference to a new empty value based on Type of given i
+func NewByValue(i interface{}) (ptr interface{}) {
+	return reflect.New(reflect.TypeOf(i)).Interface()
+}
+
+// returns the underlying type of a reference
+func DeReference(ptr interface{}) interface{} {
+	return reflect.ValueOf(ptr).Elem().Interface()
+}
+
 // allows you to compare, like if s == Defaults.String
 
 // extend it to your pleasure

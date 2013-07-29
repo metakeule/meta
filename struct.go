@@ -5,6 +5,12 @@ import (
 	"reflect"
 )
 
+func (ø struct_) Field(s interface{}, field string) (f reflect.Value) {
+	fv := ø.FinalValue(s)
+	f = fv.FieldByName(field)
+	return
+}
+
 // get an attribute of a struct into the target
 func (ø struct_) Get(s interface{}, field string, t interface{}) {
 	if Nil.Check(s) {

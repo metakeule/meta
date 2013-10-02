@@ -30,6 +30,24 @@ func (ø struct_) Get(s interface{}, field string, t interface{}) {
 	reflect.ValueOf(t).Elem().Set(p)
 }
 
+// can be used to get the raw structfield and value and interate through them
+func (ø struct_) EachRaw(s interface{}, fn func(field reflect.StructField, val reflect.Value)) {
+	if Nil.Check(s) {
+		return
+	}
+	ft := ø.FinalType(s)
+	fv := ø.FinalValue(s)
+	if !(fv.Type().Kind() == reflect.Struct) {
+		Panicf("%s is not a struct / pointer to a struct", Inspect(s))
+	}
+
+	elem := ft.NumField()
+	for i := 0; i < elem; i++ {
+		fn(ft.Field(i), fv.Field(i))
+	}
+	return
+}
+
 // can be used to get attribute names and values, for
 // tags run Tags / Tag
 // use reflect.TypeOf() to get the type of the val
@@ -181,8 +199,8 @@ func (ø struct_) Set(s interface{}, field string, val interface{}) {
 }
 
 // sets an field that is a function
-/*
-only works with go1.1
+
+//only works with go1.1
 func (ø struct_) SetFunc(s interface{}, field string, f func(reflect.Value, []reflect.Value) []reflect.Value) {
 	if Nil.Check(s) {
 		return
@@ -198,7 +216,6 @@ func (ø struct_) SetFunc(s interface{}, field string, f func(reflect.Value, []r
 	v := reflect.MakeFunc(p.Type(), generic)
 	p.Set(v)
 }
-*/
 
 // sets a field on a struct a with value b
 // a and b are casted to their internal values so that

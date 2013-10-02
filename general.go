@@ -117,9 +117,7 @@ func Replace(ø interface{}, val interface{}) {
 }
 
 // converts a value to type
-/*
-only works with go1.1
+// only works with go1.1
 func Convert(i interface{}, t reflect.Type) (r interface{}) {
 	return reflect.ValueOf(i).Convert(t).Interface()
 }
-*/

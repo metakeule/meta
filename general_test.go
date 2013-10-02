@@ -1,7 +1,7 @@
 package meta
 
 import (
-	// "reflect"
+	"reflect"
 	"testing"
 )
 
@@ -29,14 +29,12 @@ func TestReplace(t *testing.T) {
 	}
 }
 
-type ii int
+type ii float32
 
-/*
 func TestConvert(t *testing.T) {
-	cv := Convert(42, reflect.TypeOf(ii(0))).(ii)
+	cv := Convert(42, reflect.TypeOf(ii(0.0))).(ii)
 
-	if cv != ii(42) {
-		t.Errorf("error in Convert, expected: %#v, got %#v", ii(42), cv)
+	if cv != ii(42.0) {
+		t.Errorf("error in Convert, expected: %#v, got %#v", ii(42.0), cv)
 	}
 }
-*/

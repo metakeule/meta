@@ -10,5 +10,4 @@ It's usable and tested, but API may change (WIP).
 requirements
 ------------
 
-Go 1.1 is required. This package will not work
-with Go 1.0.x or earlier.
+Go 1.1 is required. This package will not work with Go 1.0.x or earlier.

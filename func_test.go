@@ -8,6 +8,8 @@ import (
 
 func Add2(i *int) { *i = *i + 2 }
 
+func Add2a(i int) int { return i + 2 }
+
 func TestCall(t *testing.T) {
 	var j = 3
 	Add2(&j)
@@ -36,5 +38,21 @@ func TestFuncReplace(t *testing.T) {
 	a(&j)
 	if j != 10 {
 		t.Errorf("Replace did not work, got %d, expected %d", j, 10)
+	}
+}
+
+func TestCallAndReturn(t *testing.T) {
+	r := Func.CallAndReturn(Add2a, 4)
+	if len(r) != 1 {
+		t.Errorf("CallAndReturn should have 1 return, but has %d", len(r))
+	}
+
+	i, ok := r[0].(int)
+	if !ok {
+		t.Errorf("CallAndReturn should return int, but returns %T", r)
+	}
+
+	if i != 6 {
+		t.Errorf("CallAndReturn did not work, got %d, expected %d", i, 6)
 	}
 }

@@ -46,9 +46,24 @@ func NewByValue(i interface{}) (ptr interface{}) {
 	return reflect.New(reflect.TypeOf(i)).Interface()
 }
 
+// returns a reference to a new reference to a new empty value based on Type
+func NewPtr(ty reflect.Type) interface{} {
+	val := reflect.New(ty)
+	ref := reflect.New(val.Type())
+	ref.Elem().Set(val)
+	return ref.Interface()
+}
+
 // returns the underlying type of a reference
 func DeReference(ptr interface{}) interface{} {
 	return reflect.ValueOf(ptr).Elem().Interface()
+}
+
+// Assoc associates targetPtrPtr with srcPtr so that
+// targetPtrPtr is a pointer to srcPtr and
+// targetPtr and srcPtr are pointing to the same address
+func Assoc(srcPtr, targetPtrPtr interface{}) {
+	reflect.ValueOf(targetPtrPtr).Elem().Set(reflect.ValueOf(srcPtr))
 }
 
 // allows you to compare, like if s == Defaults.String

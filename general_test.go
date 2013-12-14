@@ -38,3 +38,27 @@ func TestConvert(t *testing.T) {
 		t.Errorf("error in Convert, expected: %#v, got %#v", ii(42.0), cv)
 	}
 }
+
+func TestAssoc(t *testing.T) {
+	y1 := &y{A: 5}
+	y2 := &y{}
+	Assoc(y1, &y2)
+
+	if y2.A != 5 {
+		t.Errorf("error in Assoc, did not set target")
+	}
+
+	y1.A = 6
+
+	if y2.A != 6 {
+		t.Errorf("error in Assoc, target not associated with src")
+	}
+}
+
+func TestNewPtr(t *testing.T) {
+	y1 := NewPtr(reflect.TypeOf(y{})).(**y)
+
+	if reflect.TypeOf(**y1) != reflect.TypeOf(y{}) {
+		t.Errorf("NewPtr returns not pointer to a pointer, is of type %T and should be **%T", y1, y{})
+	}
+}

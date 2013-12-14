@@ -1,6 +1,7 @@
 {
   "Exports": {
     "Array": "array_{meta{\"array\", func(ø meta, i interface{}) bool { return ø.Is(reflect.Array, i) }}}",
+    "Assoc": "func (interface{},interface{})",
     "Bool": "bool_{meta{\"bool\", func(ø meta, i interface{}) bool { return ø.Is(reflect.Bool, i) }}}",
     "CallMethod": "func (interface{},string,...interface{})",
     "Channel": "channel_{meta{\"channel\", func(ø meta, i interface{}) bool { return ø.Is(reflect.Chan, i) }}}",
@@ -19,6 +20,7 @@
     "MustBe": "func (checker,interface{})",
     "New": "func (reflect.Type) interface{}",
     "NewByValue": "func (interface{}) interface{}",
+    "NewPtr": "func (reflect.Type) interface{}",
     "Nil": "nil_{meta{\"nil\", func(ø meta, i interface{}) bool { return i == nil }}}",
     "P": "func (interface{})",
     "Panicf": "func (string,...interface{})",

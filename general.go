@@ -54,6 +54,12 @@ func NewPtr(ty reflect.Type) interface{} {
 	return ref.Interface()
 }
 
+func ReferenceTo(val reflect.Value) interface{} {
+	ref := reflect.New(val.Type())
+	ref.Elem().Set(val)
+	return ref.Interface()
+}
+
 // returns the underlying type of a reference
 func DeReference(ptr interface{}) interface{} {
 	return reflect.ValueOf(ptr).Elem().Interface()
@@ -80,12 +86,18 @@ var Defaults = map[reflect.Type]interface{}{
 }
 
 func IsDefault(i interface{}) bool {
+	/*
+		vl := reflect.ValueOf(i)
+		return reflect.Zero(vl.Type()).Interface() == i
+	*/
+
 	if d := Defaults[reflect.TypeOf(i)]; d != nil {
 		// naive, does it work?? check!
 		if d == i {
 			return true
 		}
 	}
+
 	return false
 }
 

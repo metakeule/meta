@@ -62,3 +62,20 @@ func TestNewPtr(t *testing.T) {
 		t.Errorf("NewPtr returns not pointer to a pointer, is of type %T and should be **%T", y1, y{})
 	}
 }
+
+func TestReferenceTo(t *testing.T) {
+	y1 := y{A: 5}
+	y2 := ReferenceTo(reflect.ValueOf(y1)).(*y)
+
+	if y2.A != 5 {
+		t.Errorf("error in ReferenceTo")
+	}
+}
+
+/*
+func ReferenceTo(val reflect.Value) interface{} {
+	ref := reflect.New(val.Type())
+	ref.Elem().Set(val)
+	return ref.Interface()
+}
+*/

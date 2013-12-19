@@ -48,6 +48,18 @@ func (ø struct_) EachRaw(s interface{}, fn func(field reflect.StructField, val 
 	return
 }
 
+// get every field and its tag for a given tag key, empty tags and tags with value "-" are ignored
+func (ø struct_) EachTag(s interface{}, tagKey string, fn func(field reflect.StructField, val reflect.Value, tag string)) {
+	f := func(field reflect.StructField, val reflect.Value) {
+		tag := field.Tag
+		tagVal := tag.Get(tagKey)
+		if tagVal != "" && tagVal != "-" {
+			fn(field, val, tagVal)
+		}
+	}
+	ø.EachRaw(s, f)
+}
+
 // can be used to get attribute names and values, for
 // tags run Tags / Tag
 // use reflect.TypeOf() to get the type of the val

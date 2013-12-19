@@ -11,6 +11,13 @@ import (
 	It is organized by "generic" kinds, like Int, String, Struct, Map etc
 */
 
+// TODO rework meta library, so that must functions take reflect.Value or reflect.Type as parameters and
+// and check for supported kinds and the like and return errors instead of panicking
+// if meta is used it should be used in a library and this library should then contruct the reflect.Value and reflect.Type
+// and do the error handling, if needed and abstract that away
+// also create corresponding functions with name ending in Unsafe that assume correct input and don't any checking and don't
+// returns error
+// the rework is done in github.com/go-on/meta
 var Meta = meta{}
 
 type meta struct {

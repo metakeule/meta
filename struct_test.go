@@ -73,6 +73,23 @@ func TestEach(t *testing.T) {
 	if len(res) != 2 {
 		t.Errorf("error in len of each (struct): got %#v, expected %#v\n", len(res), 2)
 	}
+
+	var aTag string
+	var aVal string
+	Struct.EachTag(s, "hi", func(field reflect.StructField, val reflect.Value, tag string) {
+		if field.Name == "A" {
+			aTag = tag
+			aVal = val.String()
+		}
+	})
+
+	if aTag != "ho" {
+		t.Errorf("wrong tag value: got: %#v, expected: %#v", aTag, "ho")
+	}
+
+	if aVal != "hu" {
+		t.Errorf("wrong value: got: %#v, expected: %#v", aVal, "hu")
+	}
 }
 
 func TestTags(t *testing.T) {

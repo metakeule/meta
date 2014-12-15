@@ -46,3 +46,22 @@ func (ø func_) CallAndReturn(f interface{}, vals ...interface{}) []interface{} 
 	}
 	return res2
 }
+
+// stolen from https://ahmetalpbalkan.com/blog/golang-take-slices-of-any-type-as-input-parameter/
+func (ø func_) SliceArg(arg interface{}) (out []interface{}) {
+	slice := takeArg(arg, reflect.Slice)
+	c := slice.Len()
+	out = make([]interface{}, c)
+	for i := 0; i < c; i++ {
+		out[i] = slice.Index(i).Interface()
+	}
+	return
+}
+
+func takeArg(arg interface{}, kind reflect.Kind) (val reflect.Value) {
+	val = reflect.ValueOf(arg)
+	if val.Kind() != kind {
+		panic(fmt.Sprintf("%T is not of kind %#v, but %#v", arg, kind.String(), val.Kind().String()))
+	}
+	return
+}

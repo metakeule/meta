@@ -1,6 +1,8 @@
 package meta
 
 import (
+	"bytes"
+	"fmt"
 	"reflect"
 	// "fmt"
 	"testing"
@@ -54,5 +56,25 @@ func TestCallAndReturn(t *testing.T) {
 
 	if i != 6 {
 		t.Errorf("CallAndReturn did not work, got %d, expected %d", i, 6)
+	}
+}
+
+func TestSliceArg(t *testing.T) {
+	fn := func(a ...interface{}) string {
+		var b bytes.Buffer
+
+		for _, aa := range a {
+			fmt.Fprintf(&b, "%T-", aa)
+		}
+
+		return b.String()
+	}
+
+	sl := []int{2, 3, 4}
+
+	r := fn(Func.SliceArg(sl)...)
+	exp := "int-int-int-"
+	if r != exp {
+		t.Errorf("SliceArg not working, expected: %s, got: %s\n", exp, r)
 	}
 }
